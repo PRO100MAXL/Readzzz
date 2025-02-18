@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/navigation/nav_graph.xml -->
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- Фрагмент LoginFragment -->
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.readzzz.ui.auth.LoginFragment"
+        android:label="Login">
+        <!-- Действие для перехода на экран регистрации -->
+        <action
+            android:id="@+id/action_login_to_register"
+            app:destination="@id/registerFragment" />
+        <!-- Действие для перехода на экран списка книг -->
+        <action
+            android:id="@+id/action_login_to_bookList"
+            app:destination="@id/bookListFragment" />
+    </fragment>
+
+    <!-- Фрагмент RegisterFragment -->
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.readzzz.ui.auth.RegisterFragment"
+        android:label="Register">
+        <!-- Действие для перехода на экран списка книг -->
+        <action
+            android:id="@+id/action_register_to_bookList"
+            app:destination="@id/bookListFragment" />
+    </fragment>
+
+    <!-- Фрагмент BookListFragment -->
+    <fragment
+        android:id="@+id/bookListFragment"
+        android:name="com.readzzz.ui.book.BookListFragment"
+        android:label="Book List">
+        <!-- Действие для перехода на экран чтения книги -->
+        <action
+            android:id="@+id/action_bookList_to_bookReader"
+            app:destination="@id/bookReaderFragment" />
+    </fragment>
+
+    <!-- Фрагмент BookReaderFragment с аргументом bookId -->
+    <fragment
+        android:id="@+id/bookReaderFragment"
+        android:name="com.readzzz.ui.book.BookReaderFragment"
+        android:label="Book Reader">
+        <argument
+            android:name="bookId"
+            app:argType="string" />
+    </fragment>
+
+</navigation>
