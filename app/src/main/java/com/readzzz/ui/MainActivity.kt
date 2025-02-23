@@ -1,10 +1,8 @@
 package com.readzzz.ui
 
-// src/main/java/com/yourpackage/ui/MainActivity.kt
-
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.readzzz.R
 
@@ -14,12 +12,23 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val navController = findNavController(R.id.nav_host_fragment)
+        // Устанавливаем toolbar как ActionBar
+        setSupportActionBar(findViewById(R.id.tool_bar))
+
+        // Получаем NavHostFragment и NavController
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as? NavHostFragment
+                ?: throw IllegalStateException("NavHostFragment не найден!")
+
+        val navController = navHostFragment.navController
         setupActionBarWithNavController(navController)
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment)
-        return navController.navigateUp() || super.onSupportNavigateUp()
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as? NavHostFragment
+                ?: return false
+
+        return navHostFragment.navController.navigateUp() || super.onSupportNavigateUp()
     }
 }

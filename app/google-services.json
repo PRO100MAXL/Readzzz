@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1034384235404",
+    "project_id": "readzzz-f08ca",
+    "storage_bucket": "readzzz-f08ca.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1034384235404:android:cf547f3a8f67948400d4a9",
+        "android_client_info": {
+          "package_name": "com.readzzz"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAHML2g1LLDfZXS-0OmhlLKoDVh5GwiQeM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
