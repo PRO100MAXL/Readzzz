@@ -1,7 +1,5 @@
 package com.readzzz.ui.book
 
-// src/main/java/com/yourpackage/ui/book/BookAdapter.kt
-
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -10,23 +8,46 @@ import androidx.recyclerview.widget.RecyclerView
 import com.readzzz.databinding.ItemBookBinding
 import com.readzzz.model.Book
 
-class BookAdapter(private val onItemClick: (Book) -> Unit) :
-    ListAdapter<Book, BookAdapter.BookViewHolder>(BookDiffCallback()) {
+/**
+ * Адаптер принимает два лямбда-колбэка:
+ *  onBookClick – нажимаем на карточку (TextView) и открываем книгу
+ *  onRemoveClick – нажимаем "Удалить"
+ */
+class BookAdapter(
+    private val onBookClick: (Book) -> Unit,
+    private val onRemoveClick: (Book) -> Unit
+) : ListAdapter<Book, BookAdapter.BookViewHolder>(BookDiffCallback()) {
 
-    class BookViewHolder(private val binding: ItemBookBinding, val onItemClick: (Book) -> Unit) :
-        RecyclerView.ViewHolder(binding.root) {
+    class BookViewHolder(
+        private val binding: ItemBookBinding,
+        private val onBookClick: (Book) -> Unit,
+        private val onRemoveClick: (Book) -> Unit
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(book: Book) {
+            // Заполняем поля
             binding.textViewTitle.text = book.title
             binding.textViewAuthor.text = book.author
-            binding.root.setOnClickListener { onItemClick(book) }
+
+            // При клике на весь элемент (root) – вызвать onBookClick
+            binding.root.setOnClickListener {
+                onBookClick(book)
+            }
+
+            // При нажатии на кнопку "Удалить" – вызвать onRemoveClick
+            binding.buttonRemove.setOnClickListener {
+                onRemoveClick(book)
+            }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookViewHolder {
-        val binding =
-            ItemBookBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return BookViewHolder(binding, onItemClick)
+        val binding = ItemBookBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
+        return BookViewHolder(binding, onBookClick, onRemoveClick)
     }
 
     override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
@@ -35,9 +56,6 @@ class BookAdapter(private val onItemClick: (Book) -> Unit) :
 }
 
 class BookDiffCallback : DiffUtil.ItemCallback<Book>() {
-    override fun areItemsTheSame(oldItem: Book, newItem: Book): Boolean =
-        oldItem.id == newItem.id
-
-    override fun areContentsTheSame(oldItem: Book, newItem: Book): Boolean =
-        oldItem == newItem
+    override fun areItemsTheSame(oldItem: Book, newItem: Book) = (oldItem.id == newItem.id)
+    override fun areContentsTheSame(oldItem: Book, newItem: Book) = (oldItem == newItem)
 }

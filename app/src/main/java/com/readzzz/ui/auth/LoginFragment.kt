@@ -1,12 +1,9 @@
 package com.readzzz.ui.auth
 
-// src/main/java/com/yourpackage/ui/auth/LoginFragment.kt
-
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -24,16 +21,25 @@ class LoginFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?,
+        savedInstanceState: Bundle?
     ): View {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         binding.buttonLogin.setOnClickListener {
-            val email = binding.editTextEmail.text.toString()
-            val password = binding.editTextPassword.text.toString()
+            val email = binding.editTextEmail.text.toString().trim()
+            val password = binding.editTextPassword.text.toString().trim()
+
+            // Проверяем на пустые поля
+            if (email.isEmpty() || password.isEmpty()) {
+                Toast.makeText(requireContext(), "Введите логин и пароль", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            // Если всё ок, логинимся
             authViewModel.login(email, password)
         }
 

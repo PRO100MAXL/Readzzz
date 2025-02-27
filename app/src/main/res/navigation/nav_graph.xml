@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- res/navigation/nav_graph.xml -->
-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:startDestination="@id/loginFragment">
 
@@ -35,10 +35,14 @@
         android:id="@+id/bookListFragment"
         android:name="com.readzzz.ui.book.BookListFragment"
         android:label="Book List">
-        <!-- Действие для перехода на экран чтения книги -->
+        <!-- Переход к экрану чтения книги -->
         <action
             android:id="@+id/action_bookList_to_bookReader"
             app:destination="@id/bookReaderFragment" />
+        <!-- Переход обратно к логину -->
+        <action
+            android:id="@+id/action_bookListFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
 
     <!-- Фрагмент BookReaderFragment с аргументом bookId -->

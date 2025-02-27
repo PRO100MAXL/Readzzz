@@ -1,12 +1,9 @@
 package com.readzzz.ui.auth
 
-// src/main/java/com/yourpackage/ui/auth/RegisterFragment.kt
-
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -23,8 +20,9 @@ class RegisterFragment : Fragment() {
     private val authViewModel: AuthViewModel by viewModels()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
         _binding = FragmentRegisterBinding.inflate(inflater, container, false)
         return binding.root
@@ -32,15 +30,22 @@ class RegisterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.buttonRegister.setOnClickListener {
-            val email = binding.editTextEmail.text.toString()
-            val password = binding.editTextPassword.text.toString()
-            val confirmPassword = binding.editTextConfirmPassword.text.toString()
+            val email = binding.editTextEmail.text.toString().trim()
+            val password = binding.editTextPassword.text.toString().trim()
+            val confirmPassword = binding.editTextConfirmPassword.text.toString().trim()
 
-            if (password == confirmPassword) {
-                authViewModel.register(email, password)
-            } else {
-                Toast.makeText(requireContext(), "Passwords do not match", Toast.LENGTH_SHORT).show()
+            // Проверяем, чтобы поля не были пустыми
+            if (email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+                Toast.makeText(requireContext(), "Заполните все поля", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
             }
+            if (password != confirmPassword) {
+                Toast.makeText(requireContext(), "Пароли не совпадают", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            // Если всё ок, вызываем регистрацию
+            authViewModel.register(email, password)
         }
 
         authViewModel.authState.observe(viewLifecycleOwner) { state ->

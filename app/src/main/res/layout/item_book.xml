@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- res/layout/item_book.xml -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:padding="12dp"
     android:layout_width="match_parent"
@@ -19,4 +20,13 @@
         android:textSize="14sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
+
+    <!-- Кнопка "Удалить" -->
+    <Button
+        android:id="@+id/buttonRemove"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Удалить"
+        android:layout_marginTop="8dp" />
+
 </LinearLayout>

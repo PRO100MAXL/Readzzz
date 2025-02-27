@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.readzzz">
+
+    <!-- Разрешение на чтение медиафайлов (Android 13 и выше).
+         Если нужна поддержка чтения на более старых версиях Android,
+         добавьте также: <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    -->
+    <uses-permission android:name="android.permission.READ_MEDIA_FILES" />
 
     <application
+        android:name="com.readzzz.MyApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -12,17 +21,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Readzzz"
         tools:targetApi="31">
+
         <activity
-            android:name=".ui.MainActivity"
+            android:name="com.readzzz.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.Readzzz">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Если есть другие Activity/Service/Provider, укажите их здесь -->
+
     </application>
 
 </manifest>
